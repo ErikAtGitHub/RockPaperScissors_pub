@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<!--
+    Name: Ville Peltonen
+    Date created: 12/29/2019
+    Most recent revision: 1/4/2020 
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Rock, Paper, Scissors</title>
+    </head>
+    <body>
+        <div id="container">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div id="results"></div>
+        <div id="score">
+            <p>Player Score:<span id="player-score"></span></p>
+            <p>Computer Score:<span id="computer-score"></span></p>
+        </div>
+        <script>
+        
+            function computerPlay() {
+                let random = Math.random() * 10;
+                
+                if (random < 3) {
+                    return "Rock";
+                } else if (random > 3 && random < 6) {
+                    return "Paper";
+                } else {
+                    return "Scissors";
+                }
+            };
+    
+            function playRound(playerSelection, computerSelection) {
+                if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
+                    alert("Tied, play again!");
+                    return "Both tied";
+                } else if (playerSelection.toLowerCase() === "rock") {
+    
+                    switch(computerSelection) {
+                        case "Paper":
+                        alert("You lose! Paper beats rock.")
+                        return "Player loss"
+                        break;
+                        case "Scissors":
+                        alert("You win! Rock beats scissors.")
+                        return "Player win"
+                        break;
+                    }
+                    
+                } else if (playerSelection.toLowerCase() === "paper") {
+                    
+                    switch(computerSelection) {
+                        case "Rock":
+                        alert("You win! Paper beats rock.")
+                        return "Player win"
+                        break;
+                        case "Scissors":
+                        alert("You lose! Scissors beats paper.")
+                        return "Player loss"
+                        break;
+                    }
+    
+    
+                } else if (playerSelection.toLowerCase() === "scissors") {
+    
+                    switch(computerSelection) {
+                        case "Rock":
+                        alert("You lose! Rock beats scissors.")
+                        return "Player loss"
+                        break;
+                        case "Paper":
+                        alert("You win! Scissors beats paper.")
+                        return "Player win"
+                        break;
+                    }               
+                } else {
+    
+                }
+                
+            };
+
+            const buttons = document.querySelectorAll('button');
+            const divContainer = document.querySelector('#container');
+            const divScore = document.querySelector('#score');
+            const spanPlayer = document.querySelector('#player-score');
+            const spanComp = document.querySelector('#computer-score');
+
+            var playerScore = 0;
+            var computerScore = 0;
+
+            buttons.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    var round = playRound(item.id, computerPlay());
+                    var para = document.createElement('p');
+                    para.textContent = round;
+                    divContainer.appendChild(para);
+
+                    if (round === "Player win") {
+                        spanPlayer.textContent = playerScore + 1;
+                        playerScore += 1;
+                    } else if (round === "Player loss") {
+                        spanComp.textContent = computerScore + 1;
+                        computerScore += 1;
+                    } else { // tied
+
+                    };
+
+                    if (playerScore === 5) {
+                        alert("Game over. You win!")
+                    } else if (computerScore === 5) {
+                        alert("Game over. You lose!")
+                    } else {
+
+                    }
+
+                });
+            });            
+            </script>
+    </body>
+</html>
